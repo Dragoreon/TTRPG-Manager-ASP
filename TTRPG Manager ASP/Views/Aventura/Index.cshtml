@@ -1,0 +1,84 @@
+﻿@model List<Aventura>
+
+<section class="title-section">
+    <h1>Aventuras</h1>
+    <div class="search-bar">
+        <form asp-action="Index" method="get">
+            <input type="text" name="search" placeholder="Buscar" />
+            <select name="inProcess">
+                <option value=0>Cualquier estado</option>
+                <option value=1>En proceso</option>
+                <option value=2>Terminada</option>
+            </select>
+            <input type="submit" value="Buscar" class="btn btn-secondary" />
+        </form>
+    </div>
+</section>
+
+<div class="button create">
+    <a asp-action="Create">Crear</a>
+</div>
+<section class="adventure-list card-list">
+    <div class="list">
+        @foreach (var aventura in Model)
+        {
+            <a asp-action="Detail" asp-route-id="@aventura.Id">
+                <div class="card align-content-start justify-content-end">
+                    <h2>@Html.DisplayFor(m => aventura.Nombre)</h2>
+                    <p>@Html.DisplayFor(m => aventura.IdCampanaNavigation.Nombre)</p>
+                    @if (aventura.ListaEtiquetas != null)
+                    {
+                    @foreach (string etiqueta in aventura.ListaEtiquetas)
+                    {
+                        <span>@Html.Display(etiqueta)</span>
+                    }
+                    }
+                    @if (aventura.EnProceso.GetValueOrDefault())
+                    {
+                        <p class="green">En proceso</p>
+                    }
+                    else{
+                        <p>Terminada</p>
+                    }
+                </div>
+            </a>
+        }
+    </div>
+</section>
+<style>
+    .title-section {
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+    }
+
+    .title-section .search-bar {
+        align-content: center;
+    }
+
+    h2{
+        font-size: 1.2rem;
+    }
+
+    .list{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+    .card{
+        height: 230px;
+        width: 230px;
+        padding: 10px;
+        border-radius: 16px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    .green{
+        color: #126C45;
+    }
+    .button.create{
+
+    }
+</style>

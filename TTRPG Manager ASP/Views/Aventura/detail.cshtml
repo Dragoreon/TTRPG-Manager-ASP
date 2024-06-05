@@ -1,0 +1,23 @@
+﻿@using TTRPG_Manager_ASP.Models.ViewModels
+@model AventuraViewModel
+<h1>@Html.DisplayFor(m => Model.Nombre)</h1>
+<p>
+    <a asp-action="Delete">Borrar</a>
+</p>
+<p>
+    <a asp-action="Edit">Editar</a>
+</p>
+<hr />
+
+<div class="row" asp-action="Detail">
+    <div class="col-md-4">
+        <p>Creada el: @Html.DisplayFor(m => Model.FechaCreacion.ToShortDateString())</p>
+        <p>Etiquetas: @Html.DisplayFor(m => Model.ListaEtiquetas)</p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
